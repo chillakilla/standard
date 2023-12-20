@@ -8,7 +8,7 @@ import "./styles";
 import { StyledDiv } from "./styles";
 import { addTodo } from "../../../api/todos";
 import { useMutation, useQueryClient } from "react-query";
-
+import { useTodosQuery } from "../../../query/useTodosQuery";
 /**
  * 컴포넌트 개요 : Todo 메인 페이지에서 제목과 내용을 입력하는 영역
  * 2022.12.16 : 최초 작성
@@ -18,12 +18,7 @@ import { useMutation, useQueryClient } from "react-query";
 function Input() {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(addTodo, {
-    onSuccess: (data) => {
-      console.log("data", data);
-      queryClient.invalidateQueries("todos");
-    },
-  });
+  const mutation = useTodosQuery;
 
   // 컴포넌트 내부에서 사용할 state 2개(제목, 내용) 정의
   const [title, setTitle] = useState("");

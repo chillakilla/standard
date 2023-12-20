@@ -16,19 +16,22 @@ function DetailBox() {
   // 이전 컴포넌트에서 넘어온 parameter를 조회
   const params = useParams();
 
-  // 이 컴포넌트에서 아이템을 사용하기 위해, params로 전달받은 id를 이용-todo를 filtering
-  const filteredTodos = useSelector((state) => {
-    return state.todos.filter((item) => item.id === params.id);
-  });
+  const { isLoading, isError, data: todos } =
+    // 이 컴포넌트에서 아이템을 사용하기 위해, params로 전달받은 id를 이용-todo를 filtering
+    // const filteredTodos = useSelector((state) => {
+    //   return state.todos.filter((item) => item.id === params.id);
+    // });
+    // state.todos 가 배열이여야 함. 근데 얘가 없어서 함수가 아님 이란 오류가 떴음.
+    // 하지만 그 전에 이미 프로젝트를 쿼리를 이용하기에 로직 자체가 잘못됨.
 
-  // 화면이 최초 렌더링 되는 시점에 올바르지 않은 접근을 차단
-  // 지금은 uuidv4()를 사용해서 새로고침할 때 마다 변경 -> DB 또는 Cookie 등 사용하면 해결
-  useEffect(() => {
-    if (filteredTodos.length <= 0 || filteredTodos.length > 1) {
-      alert("올바르지 않은 접근입니다. 메인페이지로 이동합니다.");
-      navigate("/");
-    }
-  }, []);
+    // 화면이 최초 렌더링 되는 시점에 올바르지 않은 접근을 차단
+    // 지금은 uuidv4()를 사용해서 새로고침할 때 마다 변경 -> DB 또는 Cookie 등 사용하면 해결
+    useEffect(() => {
+      if (filteredTodos.length <= 0 || filteredTodos.length > 1) {
+        alert("올바르지 않은 접근입니다. 메인페이지로 이동합니다.");
+        navigate("/");
+      }
+    }, []);
 
   // todo 객체를 얻어옴(filteredTodos는 무조건 요소가 1개여야 함)
   const todo = filteredTodos[0];

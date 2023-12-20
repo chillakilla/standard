@@ -11,7 +11,7 @@ import {
   FlexTitleBox,
 } from "./styles";
 import { useMutation, useQueryClient } from "react-query";
-import { removeTodo, switchTodo } from "../../../api/todos";
+import { useTodosQuery } from "../../../query/useTodosQuery";
 
 /**
  * 컴포넌트 개요 : 메인 > TODOLIST > TODO. 할 일의 단위 컴포넌트
@@ -23,17 +23,8 @@ function Todo({ todo, isActive }) {
   const queryClient = useQueryClient();
   // 삭제 확인 용 메시지 관리
 
-  const deleteMutation = useMutation(removeTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-
-  const switchMutation = useMutation(switchTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
+  const deleteMutation = useTodosQuery;
+  const switchMutation = useTodosQuery;
 
   // hooks
   const navigate = useNavigate();
